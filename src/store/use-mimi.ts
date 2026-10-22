@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { MENU } from "@/data/menu";
-import {
-  DEFAULT_ADDRESSES,
-  DEFAULT_PROFILE,
-  SEED_LOYALTY,
-  SEED_ORDERS,
-  SEED_RESERVATIONS,
-} from "@/data/seeds";
 import type {
   Address,
   CartLine,
@@ -114,6 +107,8 @@ interface MimiState {
   loyaltyHistory: LoyaltyEvent[];
   discountCredit: number;
   membership: MembershipPlan;
+  calledIds: string[];
+  prefs: { receipts: boolean; sms: boolean };
   setHydrated: (v: boolean) => void;
   flushPendingAdds: () => void;
   addToCart: (line: Omit<CartLine, "lineId">) => void;
@@ -137,6 +132,8 @@ interface MimiState {
   addMenuItem: (item: MenuItem) => void;
   updateMenuItem: (id: string, patch: Partial<MenuItem>) => void;
   deleteMenuItem: (id: string) => void;
+  toggleCall: (id: string) => void;
+  setPref: (key: "receipts" | "sms", value: boolean) => void;
 }
 
 const STATUS_FLOW: OrderStatus[] = [
@@ -157,15 +154,17 @@ export const useMimi = create<MimiState>()(
       pendingAdds: [],
       promoCode: null,
       promoError: null,
-      favouriteIds: ["signature-jollof", "suya-fries"],
-      orders: SEED_ORDERS,
-      reservations: SEED_RESERVATIONS,
-      profile: DEFAULT_PROFILE,
-      addresses: DEFAULT_ADDRESSES,
-      points: 1240,
-      loyaltyHistory: SEED_LOYALTY,
+      favouriteIds: [],
+      orders: [],
+      reservations: [],
+      profile: { name: "", phone: "", email: "" },
+      addresses: [],
+      points: 0,
+      loyaltyHistory: [],
       discountCredit: 0,
       membership: "none",
+      calledIds: [],
+      prefs: { receipts: true, sms: true },
       setHydrated: (v) => set({ hydrated: v }),
       flushPendingAdds: () =>
         set((s) => {
@@ -229,10 +228,6 @@ export const useMimi = create<MimiState>()(
           promoCode: promo?.code,
           createdAt: new Date().toISOString(),
           etaMinutes: draft.fulfillment === "pickup" ? 18 : 28,
-          rider:
-            draft.fulfillment === "delivery"
-              ? { name: "Daniel", vehicle: "Motorbike", phone: "+234 809 221 0044" }
-              : undefined,
           pointsEarned: earned,
         };
         set({
@@ -393,9 +388,19 @@ export const useMimi = create<MimiState>()(
           items: s.items.map((it) => (it.id === id ? { ...it, ...patch } : it)),
         })),
       deleteMenuItem: (id) => set((s) => ({ items: s.items.filter((it) => it.id !== id) })),
+      toggleCall: (id) =>
+        set((s) => ({
+          calledIds: (s.calledIds ?? []).includes(id)
+            ? (s.calledIds ?? []).filter((x) => x !== id)
+            : [id, ...(s.calledIds ?? [])],
+        })),
+      setPref: (key, value) =>
+        set((s) => ({
+          prefs: { ...(s.prefs ?? { receipts: true, sms: true }), [key]: value },
+        })),
     }),
     {
-      name: "dreamtable-v1",
+      name: "dreamtable-v2",
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
       partialize: (s) => ({
@@ -411,6 +416,8 @@ export const useMimi = create<MimiState>()(
         loyaltyHistory: s.loyaltyHistory,
         discountCredit: s.discountCredit,
         membership: s.membership,
+        calledIds: s.calledIds,
+        prefs: s.prefs,
       }),
     },
   ),

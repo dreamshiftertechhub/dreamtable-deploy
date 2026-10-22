@@ -10,7 +10,7 @@ export const Route = createFileRoute("/track/")({ component: TrackIndex });
 
 function TrackIndex() {
   const navigate = useNavigate();
-  const latest = useMimi((s) => s.orders[0]?.id ?? "DT2847");
+  const latest = useMimi((s) => s.orders[0]?.id ?? "");
   const [id, setId] = useState(latest);
 
   return (
@@ -33,7 +33,7 @@ function TrackIndex() {
             id="oid"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            placeholder="DT2847"
+            placeholder="Your order number"
           />
           <Button type="submit" size="lg">
             Track order

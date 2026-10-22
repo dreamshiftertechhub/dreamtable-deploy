@@ -16,7 +16,7 @@ export function Logo({
         alt=""
         className={cn(
           "w-auto object-contain object-left",
-          size === "nav" && "h-10 md:h-11",
+          size === "nav" && "h-8 md:h-11",
           size === "footer" && "h-14",
           size === "lg" && "h-20",
         )}
@@ -25,7 +25,7 @@ export function Logo({
         <span
           className={cn(
             "font-brand tracking-tight",
-            size === "nav" && "text-[1.35rem] md:text-[1.5rem]",
+            size === "nav" && "text-lg md:text-[1.5rem]",
             size === "footer" && "text-3xl",
             size === "lg" && "text-4xl",
             onDark ? "text-white" : "text-ink",
@@ -35,7 +35,7 @@ export function Logo({
         </span>
         <span
           className={cn(
-            "font-sans font-semibold tracking-[0.38em] text-[0.55rem]",
+            "hidden font-sans font-semibold tracking-[0.38em] text-[0.55rem] sm:block",
             onDark ? "text-white/70" : "text-muted",
             size === "nav" && "mt-0.5",
             size === "footer" && "mt-1 text-[0.65rem]",

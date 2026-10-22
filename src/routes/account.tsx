@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { SiteShell } from "@/components/layout/site-shell";
@@ -7,27 +7,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FoodCard } from "@/components/food/food-card";
-import { ORDER_STATUS_LABELS } from "@/data/types";
+import { ORDER_STATUS_LABELS, type Order } from "@/data/types";
 import { formatDate, formatNaira, formatTime } from "@/lib/format";
+import { UserButton } from "@/lib/auth/gates";
+import { useCurrentUserState } from "@/lib/auth/use-current-user";
+import { listMyOrders } from "@/lib/house.functions";
 import { useMimi } from "@/store/use-mimi";
 import { useUi } from "@/store/use-ui";
 
 export const Route = createFileRoute("/account")({ component: AccountPage });
 
 function AccountPage() {
+  const { user, isPending } = useCurrentUserState();
   const profile = useMimi((s) => s.profile);
   const update = useMimi((s) => s.updateProfile);
-  const orders = useMimi((s) =>
-    s.orders.filter((o) => o.customer.phone === profile.phone || o.customer.name === profile.name),
-  );
-  const mine = orders;
+  const [remote, setRemote] = useState<Order[]>([]);
+  const orders = useMimi((s) => s.orders);
+  const mine = [...remote, ...orders.filter((o) => !remote.some((r) => r.id === o.id))];
   const items = useMimi((s) => s.items);
   const favs = useMimi((s) => s.favouriteIds);
   const favItems = items.filter((i) => favs.includes(i.id));
   const addresses = useMimi((s) => s.addresses);
   const addAddress = useMimi((s) => s.addAddress);
   const removeAddress = useMimi((s) => s.removeAddress);
-  const reservations = useMimi((s) => s.reservations.filter((r) => r.email === profile.email || r.name === profile.name));
+  const reservations = useMimi((s) => s.reservations);
   const points = useMimi((s) => s.points);
   const add = useMimi((s) => s.addToCart);
   const setCart = useUi((s) => s.setCartOpen);
@@ -35,12 +38,53 @@ function AccountPage() {
   const [label, setLabel] = useState("New");
   const [line, setLine] = useState("");
   const [apt, setApt] = useState("");
+  const [name, setName] = useState(profile.name);
+  const [phone, setPhone] = useState(profile.phone);
+  const [email, setEmail] = useState(profile.email);
+  const prefs = useMimi((s) => s.prefs ?? { receipts: true, sms: true });
+  const setPref = useMimi((s) => s.setPref);
+
+  useEffect(() => {
+    if (!user || user.isDevFallback) return;
+    if (!profile.name && !profile.email && (user.displayName || user.primaryEmail)) {
+      const nextName = user.displayName || "";
+      const nextEmail = user.primaryEmail || "";
+      update({ name: nextName, email: nextEmail });
+      setName(nextName);
+      setEmail(nextEmail);
+    }
+    void listMyOrders()
+      .then(setRemote)
+      .catch(() => {});
+  }, [user]);
 
   return (
     <SiteShell>
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-24 md:pt-32">
-        <p className="text-[11px] tracking-label text-brand">Account</p>
-        <h1 className="mt-3 font-display text-5xl">{profile.name.split(" ")[0]}'s table</h1>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-[11px] tracking-label text-brand">Account</p>
+            <h1 className="mt-3 font-display text-5xl">
+              {isPending ? "Your table" : user ? `${(user.displayName ?? name).split(" ")[0]}'s table` : "Your table"}
+            </h1>
+          </div>
+          {user ? (
+            <UserButton />
+          ) : (
+            !isPending && (
+              <Button asChild>
+                <Link to="/login" search={{ next: "/account" }}>
+                  Sign in
+                </Link>
+              </Button>
+            )
+          )}
+        </div>
+        {!user && !isPending && (
+          <p className="mt-4 max-w-lg text-sm text-muted">
+            Sign in to keep orders, favourites, and points on this table. Guests can still order without an account.
+          </p>
+        )}
         <Tabs defaultValue="orders" className="mt-10">
           <TabsList className="flex-wrap">
             <TabsTrigger value="orders">Orders</TabsTrigger>
@@ -191,39 +235,45 @@ function AccountPage() {
               className="max-w-md space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                update({
-                  name: String(fd.get("name")),
-                  phone: String(fd.get("phone")),
-                  email: String(fd.get("email")),
-                });
+                update({ name, phone, email });
                 toast("Profile saved.");
               }}
             >
               <div className="space-y-2">
                 <Label htmlFor="pname">Name</Label>
-                <Input id="pname" name="name" defaultValue={profile.name} />
+                <Input id="pname" name="name" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="pphone">Phone</Label>
-                <Input id="pphone" name="phone" defaultValue={profile.phone} />
+                <Input id="pphone" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="pemail">Email</Label>
-                <Input id="pemail" name="email" defaultValue={profile.email} />
+                <Input id="pemail" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <Button type="submit">Save</Button>
             </form>
           </TabsContent>
 
           <TabsContent value="settings">
-            <p className="text-sm text-muted">
-              Kitchen SMS and email receipts are on. This is a demo table — orders live in your
-              browser until you clear site data.
-            </p>
-            <Button asChild variant="outline" className="mt-6">
-              <Link to="/admin">Open kitchen desk</Link>
-            </Button>
+            <div className="max-w-md space-y-4">
+              <label className="flex items-center justify-between gap-4 border-b border-line py-4 text-sm">
+                Email receipts
+                <input
+                  type="checkbox"
+                  checked={prefs.receipts}
+                  onChange={(e) => setPref("receipts", e.target.checked)}
+                />
+              </label>
+              <label className="flex items-center justify-between gap-4 border-b border-line py-4 text-sm">
+                Kitchen SMS
+                <input type="checkbox" checked={prefs.sms} onChange={(e) => setPref("sms", e.target.checked)} />
+              </label>
+              <p className="text-sm text-muted">
+                {prefs.receipts ? "Receipts go to your email." : "Email receipts are off."}{" "}
+                {prefs.sms ? "The kitchen can text this phone." : "SMS is off."}
+              </p>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

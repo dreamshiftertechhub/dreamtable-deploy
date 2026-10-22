@@ -7,6 +7,7 @@ import { LiveMap } from "@/components/order/live-map";
 import { TrackingTimeline } from "@/components/order/timeline";
 import { ORDER_STATUS_LABELS } from "@/data/types";
 import { formatNaira } from "@/lib/format";
+import { TransferDetails } from "@/components/order/transfer-details";
 import { useMimi } from "@/store/use-mimi";
 
 export const Route = createFileRoute("/track/$orderId")({ component: TrackPage });
@@ -43,7 +44,7 @@ function TrackPage() {
   return (
     <SiteShell>
       <div className="pt-16">
-        <LiveMap status={order.status} />
+        <LiveMap />
       </div>
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-12 md:grid-cols-12 md:px-8">
         <div className="md:col-span-7">
@@ -51,7 +52,9 @@ function TrackPage() {
           <h1 className="mt-2 font-display text-5xl">Where's my food?</h1>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Badge variant="brand">{ORDER_STATUS_LABELS[order.status]}</Badge>
-            <span className="text-sm text-muted">ETA {order.etaMinutes - 3}–{order.etaMinutes + 5} minutes</span>
+            {order.status !== "delivered" && order.status !== "cancelled" && (
+              <span className="text-sm text-muted">Kitchen estimate {order.etaMinutes} minutes</span>
+            )}
           </div>
           {order.rider && (
             <p className="mt-6 text-sm">
@@ -90,6 +93,11 @@ function TrackPage() {
             <p className="mt-6 flex justify-between text-sm font-semibold">
               Total <span className="tabular-nums">{formatNaira(order.total)}</span>
             </p>
+            {order.payment === "transfer" && order.status !== "delivered" && order.status !== "cancelled" && (
+              <div className="mt-6">
+                <TransferDetails total={order.total} />
+              </div>
+            )}
           </div>
         </aside>
       </div>

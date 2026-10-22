@@ -3,6 +3,7 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
 import { TrackingTimeline } from "@/components/order/timeline";
 import { formatNaira } from "@/lib/format";
+import { TransferDetails } from "@/components/order/transfer-details";
 import { lineTotal, useMimi } from "@/store/use-mimi";
 
 export const Route = createFileRoute("/confirmation/$orderId")({ component: ConfirmationPage });
@@ -62,6 +63,11 @@ function ConfirmationPage() {
               <span>Total</span>
               <span className="tabular-nums">{formatNaira(order.total)}</span>
             </p>
+            {order.payment === "transfer" && (
+              <div className="mt-6">
+                <TransferDetails total={order.total} />
+              </div>
+            )}
           </div>
         </div>
         <div className="mt-12 flex flex-wrap gap-3">

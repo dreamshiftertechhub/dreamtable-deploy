@@ -32,7 +32,7 @@ function AdminAnalytics() {
     const hour = 16 + i;
     return {
       hour: `${hour}:00`,
-      orders: orders.filter((o) => new Date(o.createdAt).getHours() === hour).length + [4, 7, 11, 9, 14, 8, 5, 2][i],
+      orders: orders.filter((o) => new Date(o.createdAt).getHours() === hour).length,
     };
   });
 

@@ -20,7 +20,9 @@ import {
 } from "@/components/ui/select";
 import { CATEGORIES, CATEGORY_LABELS, type Category, type MenuItem, type SpiceLevel } from "@/data/types";
 import { formatNaira } from "@/lib/format";
+import { setPassCall } from "@/lib/house.functions";
 import { useMimi } from "@/store/use-mimi";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/menu")({ component: AdminMenu });
 
@@ -29,6 +31,8 @@ function AdminMenu() {
   const update = useMimi((s) => s.updateMenuItem);
   const remove = useMimi((s) => s.deleteMenuItem);
   const add = useMimi((s) => s.addMenuItem);
+  const called = useMimi((s) => s.calledIds ?? []);
+  const toggleCall = useMimi((s) => s.toggleCall);
   const [editing, setEditing] = useState<MenuItem | null>(null);
   const [creating, setCreating] = useState(false);
 
@@ -56,6 +60,19 @@ function AdminMenu() {
             </div>
             <Button size="sm" variant="outline" onClick={() => setEditing(item)}>
               Edit
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                const on = !called.includes(item.id);
+                toggleCall(item.id);
+                void setPassCall({ data: { menuItemId: item.id, note: "Called from the pass", on } }).then((result) => {
+                  if (!result.ok) toast(result.error ?? "The pass didn't hear that.");
+                });
+              }}
+            >
+              {called.includes(item.id) ? "Take off the pass" : "Call to the pass"}
             </Button>
             <Button
               size="sm"
