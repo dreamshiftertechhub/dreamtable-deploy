@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowRight, Heart, Plus } from "lucide-react";
+import { ArrowDown, ArrowRight, Heart, Plus, ShoppingBag } from "lucide-react";
+import { PassBoard, PassLink } from "@/components/pass/pass-board";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
 import { FoodCard } from "@/components/food/food-card";
 import { SpiceDots } from "@/components/food/spice";
 import { SIGNATURES } from "@/data/menu";
-import { REVIEWS } from "@/data/seeds";
-import { KITCHEN_CLOSES } from "@/data/types";
+import { FREE_DELIVERY_OVER, KITCHEN_CLOSES } from "@/data/types";
 import { formatNaira } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useMimi } from "@/store/use-mimi";
@@ -19,8 +19,8 @@ function Home() {
     <SiteShell overlayNav>
       <Hero />
       <Signatures />
+      <PassTeaser />
       <PlateTeaser />
-      <Reviews />
       <StoryTeaser />
       <LoyaltyTeaser />
       <CateringTeaser />
@@ -34,54 +34,97 @@ function Hero() {
     <section className="relative min-h-[100svh] overflow-hidden bg-ink text-white">
       <img
         src="/food/hero.jpg"
-        alt="A table at DreamTable: jollof, grilled chicken, suya and Chapman"
-        className="hero-zoom absolute inset-0 h-full w-full object-cover"
+        alt="Jollof rice and fire-grilled chicken on a dark table at DreamTable, Victoria Island"
+        className="hero-zoom absolute inset-0 h-full w-full object-cover object-[72%_42%] md:object-[64%_center]"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/30" />
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-4 pb-16 pt-28 md:px-8 md:pb-20">
-        <p className="reveal text-[11px] font-semibold tracking-label text-white/80" style={{ animationDelay: "80ms" }}>
-          Victoria Island · Lagos
-        </p>
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/45 to-ink/25 md:bg-gradient-to-r md:from-ink/90 md:via-ink/55 md:to-transparent"
+        aria-hidden
+      />
+      <div className="hero-steam" aria-hidden />
+      <div className="hero-steam hero-steam-b" aria-hidden />
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:items-start md:px-8 md:text-left">
         <p
-          className="reveal mt-3 font-script text-[18vw] leading-[0.78] text-white md:text-[8.5rem]"
-          style={{ animationDelay: "140ms" }}
+          className="reveal inline-flex items-center gap-2 rounded-full border border-white/25 bg-ink/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
+          style={{ animationDelay: "0ms" }}
         >
-          Dream
-        </p>
-        <p
-          className="reveal font-script text-[18vw] leading-[0.78] text-white md:text-[8.5rem]"
-          style={{ animationDelay: "180ms" }}
-        >
-          Table
+          <span className="size-1.5 rounded-full bg-ok" aria-hidden />
+          Open now · Delivering in Lagos
         </p>
         <h1
-          className="reveal mt-6 max-w-2xl font-display text-4xl leading-[1.02] md:mt-7 md:text-6xl md:leading-[1.04]"
-          style={{ animationDelay: "220ms" }}
+          className="reveal mt-6 max-w-xl font-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-white"
+          style={{ animationDelay: "100ms" }}
         >
-          Nigerian flavour,
+          Come hungry.
           <br />
-          thoughtfully elevated.
+          Leave talking.
         </h1>
-        <p className="reveal mt-5 max-w-lg text-base leading-7 text-white/80 md:mt-6 md:text-[17px] md:leading-8" style={{ animationDelay: "320ms" }}>
-          An elevated Lagos dining experience where bold Nigerian flavours, refined technique, and warm hospitality meet at the table.
+        <p
+          className="reveal mt-5 max-w-md text-lg leading-snug text-white md:text-xl"
+          style={{ animationDelay: "200ms" }}
+        >
+          Bold Nigerian flavours, made fresh and delivered with love.
         </p>
-        <div className="reveal mt-9 flex flex-wrap items-center gap-3 md:mt-10" style={{ animationDelay: "420ms" }}>
-          <Button asChild size="lg" variant="default">
-            <Link to="/order">Order now</Link>
-          </Button>
-          <Button asChild size="lg" variant="inverse">
-            <Link to="/menu">Explore menu</Link>
-          </Button>
+        <div
+          className="reveal mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row md:w-auto"
+          style={{ animationDelay: "300ms" }}
+        >
+          <Link
+            to="/order"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 bg-brand px-7 text-[11px] font-semibold tracking-label text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-[0_14px_32px_-10px_rgba(215,25,32,0.85)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
+          >
+            <ShoppingBag className="size-4" aria-hidden />
+            Order now
+          </Link>
+          <Link
+            to="/menu"
+            className="inline-flex h-12 w-full items-center justify-center border border-white bg-transparent px-7 text-[11px] font-semibold tracking-label text-white transition duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
+          >
+            Explore menu
+          </Link>
         </div>
-        <div className="reveal mt-12 flex flex-wrap items-end justify-between gap-5 md:mt-14" style={{ animationDelay: "520ms" }}>
-          <p className="flex items-center gap-2 text-[11px] tracking-label">
-            <span className="size-2 rounded-full bg-ok" aria-hidden />
-            Open now · Kitchen closes {KITCHEN_CLOSES}
+        <ul
+          className="reveal mt-8 flex max-w-md flex-col items-center gap-2 text-sm text-white/90 md:max-w-none md:flex-row md:gap-0"
+          style={{ animationDelay: "400ms" }}
+        >
+          <li>Free delivery over {formatNaira(FREE_DELIVERY_OVER)}</li>
+          <li className="mx-3 hidden text-white/40 md:inline" aria-hidden>
+            ·
+          </li>
+          <li>Freshly cooked daily</li>
+          <li className="mx-3 hidden text-white/40 md:inline" aria-hidden>
+            ·
+          </li>
+          <li>Pay by Moniepoint transfer</li>
+        </ul>
+        <p className="sr-only">Kitchen closes {KITCHEN_CLOSES}</p>
+      </div>
+      <a
+        href="#signatures"
+        className="absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] tracking-label text-white/80"
+      >
+        Scroll
+        <ArrowDown className="size-4" aria-hidden />
+      </a>
+    </section>
+  );
+}
+
+function PassTeaser() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-[11px] tracking-label text-brand">Only at this table</p>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl">The pass</h2>
+          <p className="mt-3 max-w-md text-muted">
+            The kitchen calls a plate as it leaves the window. Order it in one tap — not a specials PDF from last week.
           </p>
-          <a href="#signatures" className="inline-flex items-center gap-2 text-[11px] tracking-label">
-            Scroll to taste <ArrowDown className="size-3.5" />
-          </a>
         </div>
+        <PassLink />
+      </div>
+      <div className="mt-8">
+        <PassBoard limit={3} />
       </div>
     </section>
   );
@@ -167,35 +210,6 @@ function PlateTeaser() {
           </Button>
         </div>
         <img src="/food/jollof.jpg" alt="Jollof rice" className="aspect-[4/3] w-full object-cover" />
-      </div>
-    </section>
-  );
-}
-
-function Reviews() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
-      <p className="text-[11px] font-semibold tracking-label text-brand">From the table</p>
-      <h2 className="mt-3 max-w-xl font-display text-4xl md:text-6xl">Don't take our word for it.</h2>
-      <div className="mt-12 space-y-16">
-        {REVIEWS.map((r, i) => (
-          <blockquote
-            key={r.name}
-            className={`grid items-center gap-8 md:grid-cols-12 ${i % 2 === 1 ? "md:text-right" : ""}`}
-          >
-            <img
-              src={r.image}
-              alt=""
-              className={`aspect-[4/3] w-full object-cover md:col-span-5 ${i % 2 === 1 ? "md:col-start-8" : ""}`}
-            />
-            <div className={`md:col-span-6 ${i % 2 === 1 ? "md:col-start-1 md:row-start-1" : ""}`}>
-              <p className="font-display text-3xl leading-snug md:text-5xl">“{r.quote}”</p>
-              <footer className="mt-6 text-sm text-muted">
-                {r.name} · {r.dish}
-              </footer>
-            </div>
-          </blockquote>
-        ))}
       </div>
     </section>
   );

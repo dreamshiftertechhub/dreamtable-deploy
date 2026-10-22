@@ -41,9 +41,8 @@ function LoyaltyPage() {
     <SiteShell>
       <div className="mx-auto max-w-4xl px-4 pb-16 pt-24 md:pt-32">
         <p className="text-[11px] tracking-label text-navy">Loyalty</p>
-        <h1 className="mt-3 font-script text-7xl leading-none text-brand md:text-8xl">Dream</h1>
-        <p className="mt-1 text-[11px] font-semibold tracking-[0.42em] text-brand">TABLE</p>
-        <p className="mt-6 font-display text-4xl">The Circle</p>
+        <h1 className="mt-3 font-brand text-5xl tracking-tight text-ink md:text-6xl">Dream Table</h1>
+        <p className="mt-2 text-[11px] font-semibold tracking-[0.42em] text-brand">THE CIRCLE</p>
         <p className="mt-8 font-display text-7xl tabular-nums">{points.toLocaleString()}</p>
         <p className="mt-2 text-muted">
           {membership !== "none"

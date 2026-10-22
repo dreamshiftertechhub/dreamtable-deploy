@@ -23,8 +23,8 @@ function LegalPage() {
             Loyalty points have no cash value and can be withdrawn if we catch abuse.
           </p>
           <p>
-            Card and transfer checkouts confirm the order with the kitchen. Live card collection on a
-            .ng or .com domain is connected through Paystack or Flutterwave once you publish.
+            Pay by transfer to Dreamtable, Moniepoint, account 9015828778. Cash and card are taken when the food
+            arrives. We do not store card numbers on this site.
           </p>
         </div>
 
@@ -37,8 +37,8 @@ function LegalPage() {
             guest lists. Messages to the events desk stay with the house.
           </p>
           <p>
-            In your browser, a pitch-ready kitchen keeps orders on the device you are using. On a live
-            domain with accounts, they live with the house instead.
+            Orders you place stay on this device, and with the house if you are signed in, so the kitchen
+            can cook them and you can track them. We do not sell guest lists.
           </p>
           <p>Questions — hello@dreamtable.ng or {`+234 201 330 1840`}.</p>
         </div>

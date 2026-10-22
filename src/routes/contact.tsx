@@ -26,6 +26,20 @@ function ContactPage() {
             </a>
           </p>
           <p className="mt-2 text-muted">hello@dreamtable.ng</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="https://wa.me/2342013301840"
+              className="inline-flex h-11 items-center bg-brand px-5 text-[11px] font-semibold tracking-label text-white"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=14+Adeola+Odeku+Street+Victoria+Island+Lagos"
+              className="inline-flex h-11 items-center border border-ink px-5 text-[11px] font-semibold tracking-label"
+            >
+              Directions
+            </a>
+          </div>
           <dl className="mt-10 space-y-3 text-sm">
             <div className="flex justify-between gap-4 border-b border-line pb-3">
               <dt className="text-muted">Lunch</dt>
@@ -37,7 +51,11 @@ function ContactPage() {
             </div>
             <div className="flex justify-between gap-4 border-b border-line pb-3">
               <dt className="text-muted">Delivery</dt>
-              <dd>Victoria Island, Ikoyi, Lekki</dd>
+              <dd>VI, Ikoyi, Lekki</dd>
+            </div>
+            <div className="flex justify-between gap-4 border-b border-line pb-3">
+              <dt className="text-muted">Parking</dt>
+              <dd>Street + Wings lot</dd>
             </div>
           </dl>
         </div>
@@ -73,6 +91,14 @@ function ContactPage() {
             </>
           )}
         </form>
+      </div>
+      <div className="mx-auto max-w-6xl px-4 pb-16 md:px-8">
+        <iframe
+          title="DreamTable on the map"
+          className="h-72 w-full border-0 grayscale"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=3.415%2C6.422%2C3.435%2C6.436&layer=mapnik&marker=6.4284%2C3.4241"
+        />
+        <p className="mt-3 text-sm text-muted">14 Adeola Odeku Street, Victoria Island.</p>
       </div>
     </SiteShell>
   );
