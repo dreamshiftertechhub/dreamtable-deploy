@@ -16,10 +16,14 @@ import { Route as BuildRouteImport } from './routes/build'
 import { Route as CateringRouteImport } from './routes/catering'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as LoyaltyRouteImport } from './routes/loyalty'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as OrderRouteImport } from './routes/order'
+import { Route as PassRouteImport } from './routes/pass'
 import { Route as ReservationsRouteImport } from './routes/reservations'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as TrackRouteImport } from './routes/track'
@@ -28,9 +32,11 @@ import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 import { Route as AdminCustomersRouteImport } from './routes/admin/customers'
 import { Route as AdminMenuRouteImport } from './routes/admin/menu'
 import { Route as AdminReservationsRouteImport } from './routes/admin/reservations'
+import { Route as AdminStaffRouteImport } from './routes/admin/staff'
 import { Route as ConfirmationOrderIdRouteImport } from './routes/confirmation.$orderId'
 import { Route as TrackIndexRouteImport } from './routes/track.index'
 import { Route as TrackOrderIdRouteImport } from './routes/track.$orderId'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -67,9 +73,24 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoyaltyRoute = LoyaltyRouteImport.update({
@@ -85,6 +106,11 @@ const MenuRoute = MenuRouteImport.update({
 const OrderRoute = OrderRouteImport.update({
   id: '/order',
   path: '/order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PassRoute = PassRouteImport.update({
+  id: '/pass',
+  path: '/pass',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReservationsRoute = ReservationsRouteImport.update({
@@ -127,6 +153,11 @@ const AdminReservationsRoute = AdminReservationsRouteImport.update({
   path: '/reservations',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminStaffRoute = AdminStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ConfirmationOrderIdRoute = ConfirmationOrderIdRouteImport.update({
   id: '/confirmation/$orderId',
   path: '/confirmation/$orderId',
@@ -142,6 +173,11 @@ const TrackOrderIdRoute = TrackOrderIdRouteImport.update({
   path: '/$orderId',
   getParentRoute: () => TrackRoute,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -151,10 +187,14 @@ export interface FileRoutesByFullPath {
   '/catering': typeof CateringRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/legal': typeof LegalRoute
+  '/login': typeof LoginRoute
   '/loyalty': typeof LoyaltyRoute
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
+  '/pass': typeof PassRoute
   '/reservations': typeof ReservationsRoute
   '/story': typeof StoryRoute
   '/track': typeof TrackRouteWithChildren
@@ -162,10 +202,12 @@ export interface FileRoutesByFullPath {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/menu': typeof AdminMenuRoute
   '/admin/reservations': typeof AdminReservationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/confirmation/$orderId': typeof ConfirmationOrderIdRoute
   '/track/$orderId': typeof TrackOrderIdRoute
   '/admin/': typeof AdminIndexRoute
   '/track/': typeof TrackIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -174,20 +216,26 @@ export interface FileRoutesByTo {
   '/catering': typeof CateringRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/legal': typeof LegalRoute
+  '/login': typeof LoginRoute
   '/loyalty': typeof LoyaltyRoute
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
+  '/pass': typeof PassRoute
   '/reservations': typeof ReservationsRoute
   '/story': typeof StoryRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/menu': typeof AdminMenuRoute
   '/admin/reservations': typeof AdminReservationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/confirmation/$orderId': typeof ConfirmationOrderIdRoute
   '/track/$orderId': typeof TrackOrderIdRoute
   '/admin': typeof AdminIndexRoute
   '/track': typeof TrackIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -198,10 +246,14 @@ export interface FileRoutesById {
   '/catering': typeof CateringRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/legal': typeof LegalRoute
+  '/login': typeof LoginRoute
   '/loyalty': typeof LoyaltyRoute
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
+  '/pass': typeof PassRoute
   '/reservations': typeof ReservationsRoute
   '/story': typeof StoryRoute
   '/track': typeof TrackRouteWithChildren
@@ -209,10 +261,12 @@ export interface FileRoutesById {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/menu': typeof AdminMenuRoute
   '/admin/reservations': typeof AdminReservationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/confirmation/$orderId': typeof ConfirmationOrderIdRoute
   '/track/$orderId': typeof TrackOrderIdRoute
   '/admin/': typeof AdminIndexRoute
   '/track/': typeof TrackIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -224,10 +278,14 @@ export interface FileRouteTypes {
     | '/catering'
     | '/checkout'
     | '/contact'
+    | '/faq'
+    | '/gallery'
     | '/legal'
+    | '/login'
     | '/loyalty'
     | '/menu'
     | '/order'
+    | '/pass'
     | '/reservations'
     | '/story'
     | '/track'
@@ -235,10 +293,12 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/menu'
     | '/admin/reservations'
+    | '/admin/staff'
     | '/confirmation/$orderId'
     | '/track/$orderId'
     | '/admin/'
     | '/track/'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -247,20 +307,26 @@ export interface FileRouteTypes {
     | '/catering'
     | '/checkout'
     | '/contact'
+    | '/faq'
+    | '/gallery'
     | '/legal'
+    | '/login'
     | '/loyalty'
     | '/menu'
     | '/order'
+    | '/pass'
     | '/reservations'
     | '/story'
     | '/admin/analytics'
     | '/admin/customers'
     | '/admin/menu'
     | '/admin/reservations'
+    | '/admin/staff'
     | '/confirmation/$orderId'
     | '/track/$orderId'
     | '/admin'
     | '/track'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -270,10 +336,14 @@ export interface FileRouteTypes {
     | '/catering'
     | '/checkout'
     | '/contact'
+    | '/faq'
+    | '/gallery'
     | '/legal'
+    | '/login'
     | '/loyalty'
     | '/menu'
     | '/order'
+    | '/pass'
     | '/reservations'
     | '/story'
     | '/track'
@@ -281,10 +351,12 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/menu'
     | '/admin/reservations'
+    | '/admin/staff'
     | '/confirmation/$orderId'
     | '/track/$orderId'
     | '/admin/'
     | '/track/'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -295,14 +367,19 @@ export interface RootRouteChildren {
   CateringRoute: typeof CateringRoute
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
+  GalleryRoute: typeof GalleryRoute
   LegalRoute: typeof LegalRoute
+  LoginRoute: typeof LoginRoute
   LoyaltyRoute: typeof LoyaltyRoute
   MenuRoute: typeof MenuRoute
   OrderRoute: typeof OrderRoute
+  PassRoute: typeof PassRoute
   ReservationsRoute: typeof ReservationsRoute
   StoryRoute: typeof StoryRoute
   TrackRoute: typeof TrackRouteWithChildren
   ConfirmationOrderIdRoute: typeof ConfirmationOrderIdRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -356,11 +433,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal': {
       id: '/legal'
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loyalty': {
@@ -382,6 +480,13 @@ declare module '@tanstack/react-router' {
       path: '/order'
       fullPath: '/order'
       preLoaderRoute: typeof OrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pass': {
+      id: '/pass'
+      path: '/pass'
+      fullPath: '/pass'
+      preLoaderRoute: typeof PassRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reservations': {
@@ -440,6 +545,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminReservationsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/staff': {
+      id: '/admin/staff'
+      path: '/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AdminStaffRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/confirmation/$orderId': {
       id: '/confirmation/$orderId'
       path: '/confirmation/$orderId'
@@ -461,6 +573,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrackOrderIdRouteImport
       parentRoute: typeof TrackRoute
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -469,6 +588,7 @@ interface AdminRouteChildren {
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminMenuRoute: typeof AdminMenuRoute
   AdminReservationsRoute: typeof AdminReservationsRoute
+  AdminStaffRoute: typeof AdminStaffRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -477,6 +597,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCustomersRoute: AdminCustomersRoute,
   AdminMenuRoute: AdminMenuRoute,
   AdminReservationsRoute: AdminReservationsRoute,
+  AdminStaffRoute: AdminStaffRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -502,14 +623,19 @@ const rootRouteChildren: RootRouteChildren = {
   CateringRoute: CateringRoute,
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
+  GalleryRoute: GalleryRoute,
   LegalRoute: LegalRoute,
+  LoginRoute: LoginRoute,
   LoyaltyRoute: LoyaltyRoute,
   MenuRoute: MenuRoute,
   OrderRoute: OrderRoute,
+  PassRoute: PassRoute,
   ReservationsRoute: ReservationsRoute,
   StoryRoute: StoryRoute,
   TrackRoute: TrackRouteWithChildren,
   ConfirmationOrderIdRoute: ConfirmationOrderIdRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

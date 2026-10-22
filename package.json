@@ -1,5 +1,5 @@
 {
-  "name": "dreamtable-restaurant",
+  "name": "app-builder-workspace",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -95,8 +95,5 @@
     "playwright": "^1.62.0",
     "prettier": "^3.4.0",
     "typescript-eslint": "^8.56.1"
-  },
-  "engines": {
-    "node": "22.x"
   }
 }

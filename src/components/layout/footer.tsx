@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="mt-24 border-t border-line bg-ink text-cream">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-12 md:px-8">
         <div className="md:col-span-5">
-          <Logo size="footer" />
+          <Logo size="footer" onDark />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-cream/70">
             Bold Nigerian flavours, made fresh and delivered with love. Victoria Island, Lagos.
           </p>
@@ -52,8 +52,13 @@ export function Footer() {
           <p className="text-[11px] font-semibold tracking-label text-cream/50">House</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link to="/track" className="hover:text-brand">
-                Track order
+              <Link to="/pass" className="hover:text-brand">
+                The pass
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" className="hover:text-brand">
+                Sign in
               </Link>
             </li>
             <li>
@@ -62,9 +67,24 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-brand">
-                Contact
+              <Link to="/gallery" className="hover:text-brand">
+                Gallery
               </Link>
+            </li>
+            <li>
+              <Link to="/faq" className="hover:text-brand">
+                Questions
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-brand">
+                Visit & contact
+              </Link>
+            </li>
+            <li>
+              <a href="https://wa.me/2342013301840" className="hover:text-brand">
+                WhatsApp
+              </a>
             </li>
             <li>
               <Link to="/legal" className="hover:text-brand">
@@ -73,7 +93,7 @@ export function Footer() {
             </li>
             <li>
               <Link to="/admin" className="hover:text-brand">
-                Kitchen desk
+                Order board
               </Link>
             </li>
           </ul>

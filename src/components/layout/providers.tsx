@@ -11,8 +11,6 @@ export function AppProviders({ children }: { children: ReactNode }) {
     void Promise.resolve(result).then(() => {
       useMimi.getState().flushPendingAdds();
     });
-    const id = window.setInterval(() => useMimi.getState().tickOrders(), 4000);
-    return () => window.clearInterval(id);
   }, []);
 
   return (

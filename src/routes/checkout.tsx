@@ -15,7 +15,10 @@ import {
   useActivePromo,
   useMimi,
 } from "@/store/use-mimi";
-import type { Fulfillment, PaymentMethod } from "@/data/types";
+import { useCurrentUserState } from "@/lib/auth/use-current-user";
+import { saveHouseOrder } from "@/lib/house.functions";
+import { RESTAURANT_ADDRESS, type Fulfillment, type PaymentMethod } from "@/data/types";
+import { TransferDetails } from "@/components/order/transfer-details";
 
 export const Route = createFileRoute("/checkout")({ component: CheckoutPage });
 
@@ -27,19 +30,16 @@ function CheckoutPage() {
   const promo = useActivePromo();
   const place = useMimi((s) => s.placeOrder);
   const navigate = useNavigate();
+  const { user } = useCurrentUserState();
 
   const [step, setStep] = useState(1);
   const [name, setName] = useState(profile.name);
   const [phone, setPhone] = useState(profile.phone);
   const [address, setAddress] = useState(addresses[0]?.line ?? "");
   const [apartment, setApartment] = useState(addresses[0]?.apartment ?? "");
-  const [instructions, setInstructions] = useState("Call when outside.");
+  const [instructions, setInstructions] = useState("");
   const [fulfillment, setFulfillment] = useState<Fulfillment>("delivery");
-  const [payment, setPayment] = useState<PaymentMethod>("card");
-  const [cardName, setCardName] = useState(profile.name);
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
+  const [payment, setPayment] = useState<PaymentMethod>("transfer");
 
   const subtotal = cartSubtotal(cart);
   const discount = applyPromo(subtotal, promo) + credit;
@@ -66,8 +66,17 @@ function CheckoutPage() {
       const order = place({
         fulfillment,
         payment,
-        customer: { name, phone, address, apartment, instructions },
+        customer: {
+          name,
+          phone,
+          address: fulfillment === "pickup" ? RESTAURANT_ADDRESS : address,
+          apartment: fulfillment === "pickup" ? "" : apartment,
+          instructions,
+        },
       });
+      if (user && !user.isDevFallback) {
+        void saveHouseOrder({ data: { order } }).catch(() => {});
+      }
       void navigate({ to: "/confirmation/$orderId", params: { orderId: order.id } });
     }
   }
@@ -94,20 +103,6 @@ function CheckoutPage() {
               <Field label="Phone number" htmlFor="phone">
                 <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
               </Field>
-              <Field label="Delivery address" htmlFor="address">
-                <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
-              </Field>
-              <Field label="Apartment / house number" htmlFor="apt">
-                <Input id="apt" value={apartment} onChange={(e) => setApartment(e.target.value)} />
-              </Field>
-              <Field label="Delivery instructions" htmlFor="inst">
-                <Textarea
-                  id="inst"
-                  value={instructions}
-                  onChange={(e) => setInstructions(e.target.value)}
-                  placeholder="Call when outside. Leave with reception."
-                />
-              </Field>
             </div>
           )}
 
@@ -116,7 +111,7 @@ function CheckoutPage() {
               <Choice
                 on={fulfillment === "delivery"}
                 title="Delivery"
-                copy="28 minutes · Victoria Island kitchen to your door."
+                copy="About 28 minutes from the Victoria Island kitchen."
                 onClick={() => setFulfillment("delivery")}
               />
               <Choice
@@ -125,63 +120,46 @@ function CheckoutPage() {
                 copy="Ready in about 18 minutes at 14 Adeola Odeku Street."
                 onClick={() => setFulfillment("pickup")}
               />
+              {fulfillment === "delivery" && (
+                <div className="space-y-4 pt-4">
+                  <Field label="Delivery address" htmlFor="address">
+                    <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
+                  </Field>
+                  <Field label="Apartment / house number" htmlFor="apt">
+                    <Input id="apt" value={apartment} onChange={(e) => setApartment(e.target.value)} />
+                  </Field>
+                  <Field label="Delivery instructions" htmlFor="inst">
+                    <Textarea
+                      id="inst"
+                      value={instructions}
+                      onChange={(e) => setInstructions(e.target.value)}
+                      placeholder="Gate code, landmark, who to call"
+                    />
+                  </Field>
+                </div>
+              )}
             </div>
           )}
 
           {step === 3 && (
             <div className="mt-10 space-y-3">
               <Choice
-                on={payment === "card"}
-                title="Card"
-                copy="Visa, Mastercard, Verve."
-                onClick={() => setPayment("card")}
-              />
-              {payment === "card" && (
-                <div className="space-y-3 border border-line bg-paper p-5">
-                  <Field label="Name on card" htmlFor="card-name">
-                    <Input id="card-name" value={cardName} onChange={(e) => setCardName(e.target.value)} />
-                  </Field>
-                  <Field label="Card number" htmlFor="card-n">
-                    <Input
-                      id="card-n"
-                      inputMode="numeric"
-                      autoComplete="cc-number"
-                      placeholder="5399 1234 5678 9010"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value.replace(/[^\d ]/g, "").slice(0, 19))}
-                    />
-                  </Field>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Field label="Expiry" htmlFor="exp">
-                      <Input
-                        id="exp"
-                        placeholder="MM/YY"
-                        value={expiry}
-                        onChange={(e) => setExpiry(e.target.value.slice(0, 5))}
-                      />
-                    </Field>
-                    <Field label="CVV" htmlFor="cvv">
-                      <Input
-                        id="cvv"
-                        inputMode="numeric"
-                        placeholder="123"
-                        value={cvv}
-                        onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                      />
-                    </Field>
-                  </div>
-                </div>
-              )}
-              <Choice
                 on={payment === "transfer"}
                 title="Bank transfer"
-                copy="Account details on the next screen."
+                copy="Moniepoint · Dreamtable · 9015828778"
                 onClick={() => setPayment("transfer")}
+              />
+              {payment === "transfer" && <TransferDetails total={total} />}
+              <Choice
+                on={payment === "card"}
+                title="Card on arrival"
+                copy="Pay the rider or the counter when the food is in your hands. We do not take card numbers here."
+                onClick={() => setPayment("card")}
               />
               <Choice
                 on={payment === "cash"}
                 title="Cash on delivery"
-                copy="Exact change is a kindness."
+                copy="Have the exact amount ready."
                 onClick={() => setPayment("cash")}
               />
             </div>
@@ -198,8 +176,10 @@ function CheckoutPage() {
                   : "Pickup at DreamTable, Victoria Island"}
               </p>
               <p className="text-muted">
-                Paying by {payment === "card" ? "card" : payment === "transfer" ? "transfer" : "cash"}.
+                Paying by{" "}
+                {payment === "card" ? "card on arrival" : payment === "transfer" ? "Moniepoint transfer" : "cash"}.
               </p>
+              {payment === "transfer" && <TransferDetails total={total} />}
             </div>
           )}
 
@@ -213,8 +193,8 @@ function CheckoutPage() {
               type="button"
               onClick={next}
               disabled={
-                (step === 1 && (!name || !phone || !address)) ||
-                (step === 3 && payment === "card" && (cardNumber.replace(/\s/g, "").length < 12 || !expiry || cvv.length < 3))
+                (step === 1 && (!name.trim() || !phone.trim())) ||
+                (step === 2 && fulfillment === "delivery" && !address.trim())
               }
             >
               {step === 4 ? "Place order" : "Continue"}
