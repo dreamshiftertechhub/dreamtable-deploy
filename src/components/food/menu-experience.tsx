@@ -20,7 +20,7 @@ export function MenuExperience({ kicker, title }: { kicker: string; title: strin
       <div className="mt-10">
         <MenuFilters value={filters} onChange={setFilters} />
       </div>
-      <p className="mt-6 text-sm text-muted">{results.length} dishes</p>
+      <p className="mt-6 text-sm text-muted">{results.length} menu items</p>
       {!hydrated ? (
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
