@@ -42,20 +42,27 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
     setMobile(false);
   }, [pathname, setMobile]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
+  }, [mobileOpen]);
+
   const darkBar = overlay && !mobileOpen;
 
   return (
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-40 transition-[background-color,color,border-color,backdrop-filter] duration-300",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,color,border-color,backdrop-filter] duration-300",
           darkBar && scrolled && "border-b border-white/10 bg-ink/85 text-white backdrop-blur-md",
           darkBar && !scrolled && "border-b border-transparent bg-transparent text-white",
           !darkBar && "border-b border-line bg-cream/95 text-ink",
         )}
       >
-        <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between gap-6 px-4 md:h-[4.75rem] md:px-8">
-          <Link to="/" className="flex items-center" aria-label="DreamTable home">
+        <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between gap-1 px-2 sm:gap-4 sm:px-4 md:h-[4.75rem] md:px-8">
+          <Link to="/" className="flex min-w-0 shrink items-center overflow-hidden" aria-label="DreamTable home">
             <Logo onDark={darkBar} />
           </Link>
 
@@ -74,12 +81,12 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-0 sm:gap-1">
             <IconBtn label="Search" onClick={() => setSearch(true)}>
               <Search className="size-[18px]" />
             </IconBtn>
             {!isPending && !user ? (
-              <Link to="/login" className="px-2 text-[11px] font-semibold tracking-label">
+              <Link to="/login" className="hidden px-2 text-[11px] font-semibold tracking-label sm:inline">
                 Sign in
               </Link>
             ) : (
@@ -119,7 +126,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-30 overflow-y-auto bg-cream px-5 pb-28 pt-[4.5rem] text-ink">
+        <div className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-cream px-5 pb-28 pt-[4.5rem] text-ink">
           <nav className="mx-auto flex max-w-md flex-col" aria-label="Mobile">
             {[...LINKS, ...MORE].map((l) => (
               <Link

@@ -90,6 +90,7 @@ function LoginPage() {
                 {pending ? "One moment…" : mode === "in" ? "Sign in" : "Create account"}
               </Button>
             </form>
+            {mode === "in" && <Link to="/forgot-password" className="mt-4 block text-sm text-muted underline underline-offset-4">Forgot password?</Link>}
             <button
               type="button"
               className="mt-4 text-sm text-muted underline-offset-4 hover:underline"
