@@ -29,7 +29,7 @@ export const MENU: MenuItem[] = [
     id: "suya-fries",
     name: "Suya Loaded Fries",
     description:
-      "Crispy fries topped with spicy suya beef, onions and DreamTable signature sauce.",
+      "Crispy fries topped with spicy suya beef, onions and DreamTable signature sauce. Contains groundnuts.",
     price: 7000,
     category: "sides",
     image: "/food/suya-fries.jpg",
@@ -168,7 +168,7 @@ export const MENU: MenuItem[] = [
   {
     id: "suya-platter",
     name: "Suya Platter",
-    description: "Charcoal suya beef, peanut spice, onions and tomatoes — made to share.",
+    description: "Charcoal suya beef, groundnut-based yaji spice, onions and tomatoes — made to share. Contains groundnuts.",
     price: 11000,
     category: "grills",
     image: "/food/suya-fries.jpg",
@@ -378,7 +378,7 @@ export const MENU: MenuItem[] = [
   {
     id: "palm-wine",
     name: "Palm Wine Cooler",
-    description: "Lightly sparkling palm wine, citrus, served over ice.",
+    description: "Palm wine with citrus, served over ice. Contains alcohol.",
     price: 3500,
     category: "drinks",
     image: "/food/hero.jpg",
