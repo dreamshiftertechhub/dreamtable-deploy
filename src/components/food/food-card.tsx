@@ -63,7 +63,7 @@ export function FoodCard({
           <h3 className="font-display text-xl leading-tight text-ink">{item.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted">{item.description}</p>
           <div className="mt-3 flex items-center gap-3">
-            <span className="text-sm font-semibold tabular-nums">{formatNaira(item.price)}</span>
+            <span className="text-sm font-semibold tabular-nums">{formatNaira(item.price)} <span className="font-normal text-muted">(sample)</span></span>
             <SpiceDots level={item.spice} />
           </div>
         </div>
