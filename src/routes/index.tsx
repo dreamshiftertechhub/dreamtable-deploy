@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FoodCard } from "@/components/food/food-card";
 import { SpiceDots } from "@/components/food/spice";
 import { SIGNATURES } from "@/data/menu";
-import { FREE_DELIVERY_OVER, KITCHEN_CLOSES } from "@/data/types";
+import { KITCHEN_CLOSES } from "@/data/types";
 import { formatNaira } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useMimi } from "@/store/use-mimi";
