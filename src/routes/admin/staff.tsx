@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,9 @@ function StaffPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [role, setRole] = useState<Exclude<HouseRole, "owner">>("kitchen");
   const [error, setError] = useState("");
 
@@ -70,6 +74,7 @@ function StaffPage() {
         onSubmit={(e) => {
           e.preventDefault();
           setError("");
+          if (password !== confirmPassword) { setError("Passwords do not match."); return; }
           void addStaff({ data: { name, email, password, role } }).then((result) => {
             if (!result.ok) {
               setError(result.error);
@@ -79,6 +84,9 @@ function StaffPage() {
             setName("");
             setEmail("");
             setPassword("");
+            setConfirmPassword("");
+            setShowPassword(false);
+            setShowConfirmPassword(false);
             refresh();
           });
         }}
@@ -101,6 +109,35 @@ function StaffPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </div>
+        <fieldset className="space-y-2">
+          <legend className="text-sm font-medium">Choose staff position</legend>
+          {ROLES.map((item) => (
+            <label key={item.id} className="flex items-center gap-3 text-sm">
+              <input type="radio" name="role" checked={role === item.id} onChange={() => setRole(item.id)} />
+              {item.label}
+            </label>
+          ))}
+        </fieldset>
+        {error && <p className="text-sm text-brand">{error}</p>}
+        <Button type="submit" disabled={password !== confirmPassword}>Add staff</Button>
+      </form>
+    </div>
+  );
+}        <div className="space-y-2">
+          <Label htmlFor="staff-password">Starting password</Label>
+          <div className="relative">
+            <Input id="staff-password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
+            <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center text-muted hover:text-ink">{showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="staff-confirm-password">Confirm starting password</Label>
+          <div className="relative">
+            <Input id="staff-confirm-password" type={showConfirmPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="pr-12" aria-invalid={Boolean(confirmPassword && password !== confirmPassword)} />
+            <button type="button" aria-label={showConfirmPassword ? "Hide confirmation password" : "Show confirmation password"} aria-pressed={showConfirmPassword} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center text-muted hover:text-ink">{showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
+          </div>
+          {confirmPassword && password !== confirmPassword && <p role="alert" className="text-sm text-brand">Passwords do not match.</p>}
         </div>
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium">Role</legend>
