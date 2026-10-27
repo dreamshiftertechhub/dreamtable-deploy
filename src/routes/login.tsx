@@ -130,7 +130,7 @@ function LoginPage() {
       </div>
     </main>
   );
-}              <div className="space-y-2">
+              <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input id="password" type={showPassword ? "text" : "password"} minLength={8} autoComplete={mode === "up" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
@@ -152,7 +152,7 @@ function LoginPage() {
                 </div>
               )}
               {error && <p className="text-sm text-brand">{error}</p>}
-              <Button type="submit" size="lg" className="w-full" disabled={pending}>
+              <Button type="submit" size="lg" className="w-full" disabled={pending || (mode === "up" && password !== confirmPassword)}>
                 {pending ? "One moment…" : mode === "in" ? "Sign in" : "Create account"}
               </Button>
             </form>
@@ -163,6 +163,10 @@ function LoginPage() {
               onClick={() => {
                 setMode(mode === "in" ? "up" : "in");
                 setError("");
+                setPassword("");
+                setConfirmPassword("");
+                setShowPassword(false);
+                setShowConfirmPassword(false);
               }}
             >
               {mode === "in" ? "New here? Create an account" : "Already have a seat? Sign in"}
