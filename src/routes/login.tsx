@@ -82,17 +82,22 @@ function LoginPage() {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
-              <div className="space-y-2">
+                            <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  minLength={8}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="relative">
+                  <Input id="password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
+                  <button type="button" aria-label={showPassword ? "Hide Password" : "Show Password"} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><EyeOff className="size-4" /></button>
+                </div>
               </div>
+              {mode === "up" && (
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Confirm password</Label>
+                <div className="relative">
+                  <Input id="confirm-password" type={showConfirmPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="pr-12" />
+                  <button type="button" aria-label={showConfirmPassword ? "Hide Confirm password" : "Show Confirm password"} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><Eye className="size-4" /></button>
+                </div>
+              </div>
+              )}
               {error && <p className="text-sm text-brand">{error}</p>}
               <Button type="submit" size="lg" className="w-full" disabled={pending || (mode === "up" && password !== confirmPassword)}>
                 {pending ? "One moment…" : mode === "in" ? "Sign in" : "Create account"}
