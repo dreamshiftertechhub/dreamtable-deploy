@@ -20,6 +20,8 @@ import { saveHouseOrder } from "@/lib/house.functions";
 import { RESTAURANT_ADDRESS, type Fulfillment, type PaymentMethod } from "@/data/types";
 import { TransferDetails } from "@/components/order/transfer-details";
 
+const PRELAUNCH = true;
+
 export const Route = createFileRoute("/checkout")({ component: CheckoutPage });
 
 function CheckoutPage() {
@@ -45,6 +47,10 @@ function CheckoutPage() {
   const discount = applyPromo(subtotal, promo) + credit;
   const delivery = deliveryFeeFor(subtotal, fulfillment);
   const total = Math.max(0, subtotal + delivery - discount);
+
+  if (PRELAUNCH) {
+    return <SiteShell><div className="mx-auto max-w-2xl px-4 py-32 text-center"><p className="text-[11px] font-semibold tracking-label text-brand">DreamTable preview</p><h1 className="mt-4 font-display text-4xl md:text-5xl">Our kitchen is coming soon.</h1><p className="mt-5 text-muted">You can explore our sample menu, but ordering, payments, pickup and delivery are not available yet. Please do not transfer money for an order.</p><Button asChild className="mt-8"><Link to="/menu">Explore the menu</Link></Button></div></SiteShell>;
+  }
 
   if (cart.length === 0) {
     return (
