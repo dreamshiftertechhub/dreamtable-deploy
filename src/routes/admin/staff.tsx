@@ -124,7 +124,7 @@ function StaffPage() {
       </form>
     </div>
   );
-}        <div className="space-y-2">
+        <div className="space-y-2">
           <Label htmlFor="staff-password">Starting password</Label>
           <div className="relative">
             <Input id="staff-password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
@@ -140,7 +140,7 @@ function StaffPage() {
           {confirmPassword && password !== confirmPassword && <p role="alert" className="text-sm text-brand">Passwords do not match.</p>}
         </div>
         <fieldset className="space-y-2">
-          <legend className="text-sm font-medium">Role</legend>
+          <legend className="text-sm font-medium">Choose staff position</legend>
           {ROLES.map((item) => (
             <label key={item.id} className="flex items-center gap-3 text-sm">
               <input type="radio" name="role" checked={role === item.id} onChange={() => setRole(item.id)} />
@@ -149,7 +149,7 @@ function StaffPage() {
           ))}
         </fieldset>
         {error && <p className="text-sm text-brand">{error}</p>}
-        <Button type="submit">Add staff</Button>
+        <Button type="submit" disabled={password !== confirmPassword}>Add staff</Button>
       </form>
     </div>
   );
