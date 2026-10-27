@@ -4,15 +4,15 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { AppProviders } from "@/components/layout/providers";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "DreamTable";
+const APP_NAME = "RealMeal";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "DreamTable — Come hungry. Leave talking." },
-      { name: "description", content: "Bold Nigerian flavours, made fresh and delivered with love. Order, reserve, and track from DreamTable, Victoria Island, Lagos." },
+      { title: "RealMeal — Real Food. Real Satisfaction." },
+      { name: "description", content: "RealMeal is preparing an online-first Nigerian kitchen for selected areas of Lekki and Ajah. Preview our proposed menu; orders and payments are not yet open." },
       { name: "theme-color", content: "#D71920" },
     ],
     links: [
@@ -47,8 +47,8 @@ export const Route = createRootRoute({
   notFoundComponent: () => (
     <div className="grid min-h-screen place-items-center bg-cream px-6 text-center">
       <div>
-        <img src="/brand/mark.png" alt="" className="mx-auto h-24 w-auto" />
-        <p className="mt-3 font-brand text-4xl tracking-tight text-ink">Dream Table</p>
+        <img src="/favicon.svg" alt="" className="mx-auto h-24 w-auto" />
+        <p className="mt-3 font-brand text-4xl tracking-tight text-ink">RealMeal</p>
         <h1 className="mt-4 font-display text-4xl">Nothing matched that craving.</h1>
         <p className="mt-3 text-muted">Try our Signature Jollof, or head back home.</p>
         <a href="/" className="mt-8 inline-flex h-12 items-center bg-brand px-6 text-[11px] font-semibold tracking-label text-white">
