@@ -99,16 +99,19 @@ function StaffPage() {
           <Label htmlFor="staff-email">Email</Label>
           <Input id="staff-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
-        <div className="space-y-2">
+                <div className="space-y-2">
           <Label htmlFor="staff-password">Starting password</Label>
-          <Input
-            id="staff-password"
-            type="text"
-            minLength={8}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="relative">
+            <Input id="staff-password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
+            <button type="button" aria-label={showPassword ? "Hide Starting password" : "Show Starting password"} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><EyeOff className="size-4" /></button>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="staff-confirm-password">Confirm password</Label>
+          <div className="relative">
+            <Input id="staff-confirm-password" type={showConfirmPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="pr-12" />
+            <button type="button" aria-label={showConfirmPassword ? "Hide Confirm password" : "Show Confirm password"} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><Eye className="size-4" /></button>
+          </div>
         </div>
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium">Choose staff position</legend>
