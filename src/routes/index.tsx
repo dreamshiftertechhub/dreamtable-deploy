@@ -34,7 +34,7 @@ function Hero() {
     <section className="relative min-h-[100svh] overflow-hidden bg-ink text-white">
       <img
         src="/food/hero.jpg"
-        alt="Illustrative Nigerian food photography for the DreamTable concept"
+        alt="Illustrative Nigerian food photography for the RealMeal concept"
         className="hero-zoom absolute inset-0 h-full w-full object-cover object-[72%_42%] md:object-[64%_center]"
       />
       <div
@@ -63,7 +63,7 @@ function Hero() {
           className="reveal mt-5 max-w-md text-lg leading-snug text-white md:text-xl"
           style={{ animationDelay: "200ms" }}
         >
-          A bold Nigerian-inspired menu in the making. Explore the DreamTable concept before we open.
+          Nigerian favourites are coming to selected areas of Lekki and Ajah. Preview our proposed menu while our online kitchen prepares to launch.
         </p>
         <div
           className="reveal mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row md:w-auto"
@@ -224,7 +224,7 @@ function StoryTeaser() {
         <p className="text-[11px] tracking-label">Our story</p>
         <h2 className="mt-4 font-display text-4xl md:text-6xl">Food first. Everything else follows.</h2>
         <p className="mx-auto mt-5 max-w-lg text-white/80">
-          DreamTable was created around one simple idea — food should bring people together.
+          RealMeal was created around one simple idea — food should bring people together.
         </p>
         <Button asChild size="lg" variant="inverse" className="mt-8">
           <Link to="/story">Read the story</Link>
