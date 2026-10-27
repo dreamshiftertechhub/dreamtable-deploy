@@ -9,12 +9,12 @@ export function Footer() {
         <div className="md:col-span-5">
           <Logo size="footer" onDark />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-cream/70">
-            A preview of bold Nigerian flavours. DreamTable is preparing for a future launch; orders are not yet available.
+            Real Food. Real Satisfaction. Our online-first Nigerian kitchen is preparing to serve selected areas of Lekki and Ajah. Orders are not yet available.
           </p>
         </div>
         <div className="md:col-span-3">
           <p className="text-[11px] font-semibold tracking-label text-cream/50">Launch status</p>
-          <p className="mt-3 text-sm leading-relaxed">Location to be announced</p>
+          <p className="mt-3 text-sm leading-relaxed">Launch delivery area: selected parts of Lekki and Ajah. Kitchen address to be announced</p>
           
           <p className="mt-2 text-sm text-cream/70">Not yet accepting orders or reservations</p>
         </div>
@@ -82,11 +82,6 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <a href="https://wa.me/2342013301840" className="hover:text-brand">
-                WhatsApp
-              </a>
-            </li>
-            <li>
               <Link to="/legal" className="hover:text-brand">
                 Terms & privacy
               </Link>
@@ -100,7 +95,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 px-4 py-6 text-center text-[11px] tracking-label text-cream/40">
-        DreamTable · Preview website · Coming soon
+        RealMeal · Preview website · Coming soon
       </div>
     </footer>
   );

@@ -1,9 +1,11 @@
 /** Buyer-facing settings. Demo mode stays on until the owner confirms every launch requirement. */
 export const RESTAURANT_CONFIG = {
-  name: "DreamTable",
-  tagline: "Bold Nigerian-inspired dining",
+  name: "RealMeal",
+  tagline: "Real Food. Real Satisfaction.",
   mode: "demo" as "demo" | "live",
   location: "",
+  initialDeliveryArea: "Selected areas of Lekki and Ajah, Lagos",
+  futureExpansion: "Ogun State",
   phone: "",
   whatsapp: "",
   email: "",

@@ -64,7 +64,7 @@ export const PLATE_BASES: { id: PlateBase; label: string; price: number }[] = [
 
 export const PLATE_SAUCES: { id: PlateSauce; label: string }[] = [
   { id: "pepper", label: "Pepper Sauce" },
-  { id: "signature", label: "DreamTable Signature Sauce" },
+  { id: "signature", label: "RealMeal Signature Sauce" },
   { id: "garlic", label: "Garlic Sauce" },
   { id: "none", label: "No Sauce" },
 ];

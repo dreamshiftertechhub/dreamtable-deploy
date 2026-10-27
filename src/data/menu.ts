@@ -3,7 +3,7 @@ import type { MenuItem } from "./types";
 export const MENU: MenuItem[] = [
   {
     id: "signature-jollof",
-    name: "DreamTable Signature Jollof",
+    name: "RealMeal Classic Jollof & Chicken",
     description:
       "Smoky party-style jollof rice served with grilled chicken and house sauce.",
     price: 8500,
@@ -29,7 +29,7 @@ export const MENU: MenuItem[] = [
     id: "suya-fries",
     name: "Suya Loaded Fries",
     description:
-      "Crispy fries topped with spicy suya beef, onions and DreamTable signature sauce. Contains groundnuts.",
+      "Crispy fries topped with spicy suya beef, onions and RealMeal signature sauce. Contains groundnuts.",
     price: 7000,
     category: "sides",
     image: "/food/suya-fries.jpg",
@@ -59,7 +59,7 @@ export const MENU: MenuItem[] = [
   {
     id: "fire-chicken",
     name: "Fire-Grilled Chicken",
-    description: "Charcoal grilled chicken marinated in DreamTable's secret pepper blend.",
+    description: "Charcoal grilled chicken marinated in RealMeal's secret pepper blend.",
     price: 8000,
     category: "grills",
     image: "/food/chicken.jpg",
@@ -73,7 +73,7 @@ export const MENU: MenuItem[] = [
   },
   {
     id: "beef-burger",
-    name: "DreamTable Beef Burger",
+    name: "RealMeal Beef Burger",
     description:
       "Double smashed beef patties, melted cheese, caramelised onions and house sauce.",
     price: 9500,
