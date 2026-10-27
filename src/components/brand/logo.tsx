@@ -11,16 +11,7 @@ export function Logo({
 }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <img
-        src="/brand/mark.png"
-        alt=""
-        className={cn(
-          "w-auto object-contain object-left",
-          size === "nav" && "h-8 md:h-11",
-          size === "footer" && "h-14",
-          size === "lg" && "h-20",
-        )}
-      />
+      <span aria-hidden="true" className={cn("grid shrink-0 place-items-center border border-current font-brand font-bold tracking-[-0.1em] text-[#C6A667]", size === "nav" && "size-9 text-xl md:size-11", size === "footer" && "size-14 text-3xl", size === "lg" && "size-20 text-5xl")}>R</span>
       <span className="flex flex-col items-start leading-none">
         <span
           className={cn(
@@ -49,5 +40,5 @@ export function Logo({
 }
 
 export function Mark({ className }: { className?: string }) {
-  return <img src="/brand/mark.png" alt="RealMeal" className={cn("w-auto object-contain", className)} />;
+  return <span role="img" aria-label="RealMeal" className={cn("inline-grid size-10 place-items-center border border-[#C6A667] font-brand text-2xl font-bold text-[#C6A667]", className)}>R</span>;
 }
