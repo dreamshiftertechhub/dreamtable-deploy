@@ -31,7 +31,7 @@ export function Logo({
             onDark ? "text-white" : "text-ink",
           )}
         >
-          DreamTable
+          RealMeal
         </span>
         <span
           className={cn(
@@ -41,7 +41,7 @@ export function Logo({
             size === "footer" && "mt-1 text-[0.65rem]",
           )}
         >
-          RESTAURANT
+          REAL FOOD
         </span>
       </span>
     </span>
@@ -49,5 +49,5 @@ export function Logo({
 }
 
 export function Mark({ className }: { className?: string }) {
-  return <img src="/brand/mark.png" alt="DreamTable" className={cn("w-auto object-contain", className)} />;
+  return <img src="/brand/mark.png" alt="RealMeal" className={cn("w-auto object-contain", className)} />;
 }
