@@ -20,7 +20,9 @@ import { saveHouseOrder } from "@/lib/house.functions";
 import { RESTAURANT_ADDRESS, type Fulfillment, type PaymentMethod } from "@/data/types";
 import { TransferDetails } from "@/components/order/transfer-details";
 
-const PRELAUNCH = true;
+import { RESTAURANT_CONFIG } from "@/data/restaurant-config";
+
+const PRELAUNCH = !RESTAURANT_CONFIG.orderingEnabled || !RESTAURANT_CONFIG.paymentsEnabled;
 
 export const Route = createFileRoute("/checkout")({ component: CheckoutPage });
 
