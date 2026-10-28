@@ -49,7 +49,7 @@ function CheckoutPage() {
   const total = Math.max(0, subtotal + delivery - discount);
 
   if (PRELAUNCH) {
-    return <SiteShell><div className="mx-auto max-w-2xl px-4 py-32 text-center"><p className="text-[11px] font-semibold tracking-label text-brand">DreamTable preview</p><h1 className="mt-4 font-display text-4xl md:text-5xl">Our kitchen is coming soon.</h1><p className="mt-5 text-muted">You can explore our sample menu, but ordering, payments, pickup and delivery are not available yet. Please do not transfer money for an order.</p><Button asChild className="mt-8"><Link to="/menu">Explore the menu</Link></Button></div></SiteShell>;
+    return <SiteShell><div className="mx-auto max-w-2xl px-4 py-32 text-center"><p className="text-[11px] font-semibold tracking-label text-brand">RealMeal ordering</p><h1 className="mt-4 font-display text-4xl md:text-5xl">Online ordering is being configured.</h1><p className="mt-5 text-muted">Our Iyana Ipaja restaurant is open for dine-in. Online checkout, payment and delivery are not yet available through this website. Please do not transfer money for an online order.</p><Button asChild className="mt-8"><Link to="/menu">Explore the menu</Link></Button></div></SiteShell>;
   }
 
   if (cart.length === 0) {
