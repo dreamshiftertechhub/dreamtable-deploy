@@ -44,26 +44,19 @@ function Hero() {
       <div className="hero-steam" aria-hidden />
       <div className="hero-steam hero-steam-b" aria-hidden />
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:items-start md:px-8 md:text-left">
-        <p
-          className="reveal inline-flex items-center gap-2 rounded-full border border-white/25 bg-ink/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
-          style={{ animationDelay: "0ms" }}
-        >
-          <span className="size-1.5 rounded-full bg-ok" aria-hidden />
-          Preview website · Opening later
-        </p>
         <h1
           className="reveal mt-6 max-w-xl font-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-white"
           style={{ animationDelay: "100ms" }}
         >
-          Come hungry.
+          Real Food.
           <br />
-          Leave talking.
+          Real Satisfaction.
         </h1>
         <p
           className="reveal mt-5 max-w-md text-lg leading-snug text-white md:text-xl"
           style={{ animationDelay: "200ms" }}
         >
-          Nigerian favourites are coming to selected areas of Lekki and Ajah. Preview our proposed menu while our online kitchen prepares to launch.
+          Discover Nigerian favourites, signature rice dishes and satisfying plates, crafted around great flavour.
         </p>
         <div
           className="reveal mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row md:w-auto"
@@ -74,29 +67,10 @@ function Hero() {
             className="inline-flex h-12 w-full items-center justify-center gap-2 bg-brand px-7 text-[11px] font-semibold tracking-label text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-[0_14px_32px_-10px_rgba(215,25,32,0.85)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
           >
             <ShoppingBag className="size-4" aria-hidden />
-            Preview the menu
+            View menu
           </Link>
-          <Link
-            to="/menu"
-            className="inline-flex h-12 w-full items-center justify-center border border-white bg-transparent px-7 text-[11px] font-semibold tracking-label text-white transition duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
-          >
-            Explore menu
-          </Link>
+
         </div>
-        <ul
-          className="reveal mt-8 flex max-w-md flex-col items-center gap-2 text-sm text-white/90 md:max-w-none md:flex-row md:gap-0"
-          style={{ animationDelay: "400ms" }}
-        >
-          <li>Sample menu · Indicative prices</li>
-          <li className="mx-3 hidden text-white/40 md:inline" aria-hidden>
-            ·
-          </li>
-          <li>Orders not open yet</li>
-          <li className="mx-3 hidden text-white/40 md:inline" aria-hidden>
-            ·
-          </li>
-          <li>No payments accepted</li>
-        </ul>
         <p className="sr-only">Kitchen closes {KITCHEN_CLOSES}</p>
       </div>
       <a
@@ -201,7 +175,7 @@ function PlateTeaser() {
           <p className="text-[11px] tracking-label text-cream/60">Build your plate</p>
           <h2 className="mt-3 font-display text-4xl md:text-6xl">You know how you like it.</h2>
           <p className="mt-4 max-w-md text-cream/75">
-            Base, protein, sauce, extras. Watch the price change as you build. Explore combinations for our future kitchen.
+            Base, protein, sauce, extras. Watch the price change as you build. Find your favourite combination.
           </p>
           <Button asChild size="lg" variant="cream" className="mt-8">
             <Link to="/build">
@@ -242,7 +216,7 @@ function LoyaltyTeaser() {
           <p className="text-[11px] tracking-label text-navy">The Circle</p>
           <h2 className="mt-3 font-display text-4xl">Points for showing up hungry.</h2>
           <p className="mt-3 max-w-md text-muted">
-            A preview of the rewards experience we hope to offer after launch.
+            Discover more ways to enjoy RealMeal.
           </p>
         </div>
         <div className="md:text-right">
@@ -263,12 +237,12 @@ function CateringTeaser() {
           <p className="text-[11px] tracking-label text-brand">Private dining</p>
           <h2 className="mt-3 font-display text-4xl">Birthdays. Boardrooms. The whole street.</h2>
           <p className="mt-3 max-w-md text-muted">
-            Our future catering experience is taking shape. Bookings are not yet open.
+            Explore food options for special occasions and gatherings.
           </p>
         </div>
         <div className="md:text-right">
           <Button asChild variant="outline" size="lg">
-            <Link to="/catering">See catering preview</Link>
+            <Link to="/catering">Explore catering</Link>
           </Button>
         </div>
       </div>
@@ -280,11 +254,11 @@ function ReserveTeaser() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-8 md:px-8">
       <div className="bg-brand px-6 py-14 text-white md:px-16 md:py-20">
-        <p className="text-[11px] tracking-label text-white/70">Coming later</p>
+        <p className="text-[11px] tracking-label text-white/70">Dining</p>
         <h2 className="mt-3 font-display text-4xl md:text-6xl">A table worth waiting for.</h2>
         <p className="mt-4 max-w-md text-white/80">Date night, birthdays, the long overdue catch-up.</p>
         <Button asChild size="lg" variant="inverse" className="mt-8">
-          <Link to="/reservations">Reservations coming soon</Link>
+          <Link to="/reservations">Explore dining</Link>
         </Button>
       </div>
     </section>
