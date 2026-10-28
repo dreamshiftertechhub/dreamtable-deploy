@@ -52,10 +52,10 @@ function AdminLayout() {
           <Logo />
           <h1 className="mt-8 font-display text-5xl">The kitchen is locked.</h1>
           <p className="mt-4 text-muted">
-            The first person to take the keys becomes the owner. After that, only people you add as staff can enter.
+            Owner and staff access must be provisioned securely. Public registration does not grant administrator access.
           </p>
           {error && <p className="mt-4 text-sm text-brand">{error}</p>}
-          <Button
+          {import.meta.env.DEV && <Button
             className="mt-8"
             disabled={claiming}
             onClick={() => {
@@ -71,7 +71,7 @@ function AdminLayout() {
             }}
           >
             {claiming ? "Opening…" : "Take the keys"}
-          </Button>
+          </Button>}
         </div>
       </div>
     );
@@ -83,7 +83,7 @@ function AdminLayout() {
     <div className="min-h-screen bg-cream">
       <header className="border-b border-line bg-ink text-cream">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
-          <Link to="/admin" className="flex items-center gap-3" aria-label="DreamTable kitchen">
+          <Link to="/admin" className="flex items-center gap-3" aria-label="RealMeal administration">
             <Logo onDark />
             <span className="text-[11px] font-semibold tracking-label text-cream/70">
               {seat.role === "owner" ? "Owner" : seat.role}

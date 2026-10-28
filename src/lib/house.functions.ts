@@ -47,6 +47,7 @@ export const getMySeat = createServerFn({ method: "GET" })
 export const claimHouse = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
+    if (process.env.NODE_ENV === "production") return { ok: false as const, error: "Owner setup is locked on the public website. Use the verified, administrator-controlled provisioning process." };
     const sql = await getSql();
     const existing = await seatOf(sql, context.userId);
     if (existing) return { ok: true as const, seat: existing };
