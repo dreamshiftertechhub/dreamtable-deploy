@@ -1,5 +1,16 @@
 import { cn } from "@/lib/utils";
 
+/** RealMeal: a clean plate-and-cutlery mark, shared by header, footer and auth pages. */
+function BrandMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className={cn("shrink-0 text-[#C6A667]", className)}>
+      <circle cx="32" cy="32" r="27" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M18 16v13c0 4 2 6 5 6v13M23 16v19M28 16v13c0 4-2 6-5 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M43 16c-7 5-10 12-10 21h10V16Zm0 0v32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Logo({
   className,
   size = "nav",
@@ -11,34 +22,15 @@ export function Logo({
 }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span aria-hidden="true" className={cn("grid shrink-0 place-items-center border border-current font-brand font-bold tracking-[-0.1em] text-[#C6A667]", size === "nav" && "size-9 text-xl md:size-11", size === "footer" && "size-14 text-3xl", size === "lg" && "size-20 text-5xl")}>R</span>
+      <BrandMark className={cn(size === "nav" && "size-10 md:size-11", size === "footer" && "size-14", size === "lg" && "size-20")} />
       <span className="flex flex-col items-start leading-none">
-        <span
-          className={cn(
-            "font-brand tracking-tight",
-            size === "nav" && "text-lg md:text-[1.5rem]",
-            size === "footer" && "text-3xl",
-            size === "lg" && "text-4xl",
-            onDark ? "text-white" : "text-ink",
-          )}
-        >
-          RealMeal
-        </span>
-        <span
-          className={cn(
-            "hidden font-sans font-semibold tracking-[0.38em] text-[0.55rem] sm:block",
-            onDark ? "text-white/70" : "text-muted",
-            size === "nav" && "mt-0.5",
-            size === "footer" && "mt-1 text-[0.65rem]",
-          )}
-        >
-          REAL FOOD
-        </span>
+        <span className={cn("font-sans font-extrabold tracking-[-0.055em]", size === "nav" && "text-xl md:text-2xl", size === "footer" && "text-3xl", size === "lg" && "text-4xl", onDark ? "text-white" : "text-ink")}>RealMeal</span>
+        <span className={cn("mt-1 font-sans text-[0.55rem] font-semibold uppercase tracking-[0.19em] sm:text-[0.6rem]", onDark ? "text-white/70" : "text-muted")}>Real Food. Real Satisfaction.</span>
       </span>
     </span>
   );
 }
 
 export function Mark({ className }: { className?: string }) {
-  return <span role="img" aria-label="RealMeal" className={cn("inline-grid size-10 place-items-center border border-[#C6A667] font-brand text-2xl font-bold text-[#C6A667]", className)}>R</span>;
+  return <span role="img" aria-label="RealMeal" className={cn("inline-grid size-10 place-items-center", className)}><BrandMark className="size-full" /></span>;
 }
