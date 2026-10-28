@@ -1,3 +1,4 @@
+import { RESTAURANT_CONFIG } from "./restaurant-config";
 export const CATEGORIES = [
   "all",
   "rice",
@@ -63,7 +64,7 @@ export const PLATE_BASES: { id: PlateBase; label: string; price: number }[] = [
 
 export const PLATE_SAUCES: { id: PlateSauce; label: string }[] = [
   { id: "pepper", label: "Pepper Sauce" },
-  { id: "signature", label: "DreamTable Signature Sauce" },
+  { id: "signature", label: "RealMeal Signature Sauce" },
   { id: "garlic", label: "Garlic Sauce" },
   { id: "none", label: "No Sauce" },
 ];
@@ -236,5 +237,5 @@ export const PROMOS: Promo[] = [
 export const DELIVERY_FEE = 1500;
 export const FREE_DELIVERY_OVER = 25000;
 export const KITCHEN_CLOSES = "10:30 PM";
-export const RESTAURANT_ADDRESS = "14 Adeola Odeku Street, Victoria Island, Lagos";
-export const RESTAURANT_PHONE = "+234 201 330 1840";
+export const RESTAURANT_ADDRESS = RESTAURANT_CONFIG.location;
+export const RESTAURANT_PHONE = RESTAURANT_CONFIG.phone;

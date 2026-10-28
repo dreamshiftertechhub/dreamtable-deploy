@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Logo } from "@/components/brand/logo";
@@ -21,12 +22,16 @@ function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
+    if (mode === "up" && password !== confirmPassword) { setError("Passwords do not match."); return; }
     setPending(true);
     try {
       const path = mode === "up" ? "/api/auth/sign-up/email" : "/api/auth/sign-in/email";
@@ -51,7 +56,7 @@ function LoginPage() {
   return (
     <main className="grid min-h-screen place-items-center bg-cream px-4 py-16">
       <div className="w-full max-w-md">
-        <Link to="/" aria-label="DreamTable home">
+        <Link to="/" aria-label="RealMeal home">
           <Logo size="lg" />
         </Link>
         <h1 className="mt-8 font-display text-5xl">{mode === "in" ? "Welcome back." : "Take a seat."}</h1>
@@ -74,22 +79,28 @@ function LoginPage() {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
-              <div className="space-y-2">
+                            <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  minLength={8}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="relative">
+                  <Input id="password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
+                  <button type="button" aria-label={showPassword ? "Hide Password" : "Show Password"} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center">{showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
+                </div>
               </div>
+              {mode === "up" && (
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Confirm password</Label>
+                <div className="relative">
+                  <Input id="confirm-password" type={showConfirmPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="pr-12" />
+                  <button type="button" aria-label={showConfirmPassword ? "Hide Confirm password" : "Show Confirm password"} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center">{showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
+                </div>
+              </div>
+              )}
               {error && <p className="text-sm text-brand">{error}</p>}
-              <Button type="submit" size="lg" className="w-full" disabled={pending}>
+              <Button type="submit" size="lg" className="w-full" disabled={pending || (mode === "up" && password !== confirmPassword)}>
                 {pending ? "One moment…" : mode === "in" ? "Sign in" : "Create account"}
               </Button>
             </form>
+            {mode === "in" && <Link to="/forgot-password" className="mt-4 block text-sm text-muted underline underline-offset-4">Forgot password?</Link>}
             <button
               type="button"
               className="mt-4 text-sm text-muted underline-offset-4 hover:underline"

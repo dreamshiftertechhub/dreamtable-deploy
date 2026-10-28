@@ -6,6 +6,7 @@ import type { MenuItem } from "@/data/types";
 import { useMimi } from "@/store/use-mimi";
 import { useUi } from "@/store/use-ui";
 import { SpiceDots } from "./spice";
+import { MenuPhoto } from "./menu-photo";
 
 export function FoodCard({
   item,
@@ -37,14 +38,10 @@ export function FoodCard({
         className="relative block overflow-hidden bg-surface"
         aria-label={`View ${item.name}`}
       >
-        <img
-          src={item.image}
-          alt={item.name}
-          className={cn(
+        <MenuPhoto item={item} className={cn(
             "aspect-[4/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105",
             sold && "opacity-60",
-          )}
-        />
+          )} />
         {item.signature ? (
           <span className="absolute left-3 top-3 font-display text-2xl text-white drop-shadow">
             {String(item.signature).padStart(2, "0")}
@@ -66,7 +63,7 @@ export function FoodCard({
           <h3 className="font-display text-xl leading-tight text-ink">{item.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted">{item.description}</p>
           <div className="mt-3 flex items-center gap-3">
-            <span className="text-sm font-semibold tabular-nums">{formatNaira(item.price)}</span>
+            <span className="text-sm font-semibold tabular-nums">{formatNaira(item.price)} <span className="font-normal text-muted">(sample)</span></span>
             <SpiceDots level={item.spice} />
           </div>
         </div>

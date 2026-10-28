@@ -37,6 +37,7 @@ import { randomBytes } from "node:crypto";
 import { Pool } from "pg";
 import { ensureDbReady, getPglite } from "../db";
 import { emailAndPasswordEnabled } from "./email-password";
+import { sendPasswordResetEmail } from "./password-reset-email.server";
 import { GATE_PROVIDER_ID, gateIdentitySessions } from "./gate-session.server";
 import { GROK_PROVIDERS } from "./providers";
 import { pgliteDialect } from "./pglite-dialect";
@@ -115,15 +116,22 @@ const baseURL = explicitBaseURL ?? {
 
 // Origins Better Auth accepts on credentialed POSTs (sign-up/sign-in, etc.).
 // Missing entries here surface as FORBIDDEN "Invalid origin".
-const trustedOrigins: string[] = explicitBaseURL
-  ? [explicitBaseURL, ...LOCAL_DEV_ORIGINS]
-  : [
-      // Host wildcards (matched against Origin's host)
-      ...previewAllowedHosts,
-      // Full-origin wildcards (matched against Origin)
-      ...previewAllowedHosts.flatMap((host) => [`https://${host}`, `http://${host}`]),
-      ...LOCAL_DEV_ORIGINS,
-    ];
+const productionOrigin = "https://dreamtable-deploy.vercel.app";
+const deploymentOrigins = [
+  env("VERCEL_URL"),
+  env("VERCEL_BRANCH_URL"),
+  env("VERCEL_PROJECT_PRODUCTION_URL"),
+].filter((host): host is string => Boolean(host))
+  .map((host) => host.startsWith("https://") ? host : `https://${host}`);
+const trustedOrigins: string[] = Array.from(new Set([
+  productionOrigin,
+  ...(explicitBaseURL ? [explicitBaseURL.replace(/\/$/, "")] : [
+    ...previewAllowedHosts,
+    ...previewAllowedHosts.flatMap((host) => [`https://${host}`, `http://${host}`]),
+  ]),
+  ...deploymentOrigins,
+  ...LOCAL_DEV_ORIGINS,
+]));
 
 const databaseUrl = env("DATABASE_URL");
 
@@ -211,7 +219,7 @@ export const auth = betterAuth({
   session: { cookieCache: { enabled: true, maxAge: 300 } },
 
   // Local email/password — toggled only via `./email-password` (not a plugin).
-  ...(emailAndPasswordEnabled ? { emailAndPassword: { enabled: true } } : {}),
+  ...(emailAndPasswordEnabled ? { emailAndPassword: { enabled: true, sendResetPassword: async ({ user, url }: { user: { email: string }; url: string }) => { await sendPasswordResetEmail(user.email, url); }, resetPasswordTokenExpiresIn: 3600 } } : {}),
 
   // `__Host-` prefixed cookies: the browser REFUSES any same-named cookie that
   // carries a `Domain` attribute, so a sibling `*.grok.me` app cannot "toss" a

@@ -19,6 +19,7 @@ import { extraCost, useMimi } from "@/store/use-mimi";
 import { useUi } from "@/store/use-ui";
 import { Qty } from "./qty";
 import { SpiceDots } from "./spice";
+import { MenuPhoto } from "./menu-photo";
 
 export function FoodModal() {
   const foodId = useUi((s) => s.foodId);
@@ -63,7 +64,7 @@ function FoodBody() {
   return (
     <DialogContent className="flex h-[min(92vh,760px)] w-[min(96vw,780px)] flex-col overflow-hidden p-0 md:grid md:h-[min(86vh,720px)] md:grid-cols-2 md:grid-rows-1">
       <div className="relative h-44 shrink-0 bg-surface md:h-full md:min-h-[28rem]">
-        <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+        <MenuPhoto item={item} className="h-full w-full object-cover" />
       </div>
       <div className="flex min-h-0 flex-col bg-cream">
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 md:p-8">
