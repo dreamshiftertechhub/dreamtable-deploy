@@ -31,10 +31,10 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-ink text-white">
+    <section className="relative min-h-[82svh] overflow-hidden bg-ink text-white">
       <img
         src="/food/hero.jpg"
-        alt="Illustrative Nigerian food photography for the RealMeal concept"
+        alt="Nigerian food served at RealMeal (illustrative image)"
         className="hero-zoom absolute inset-0 h-full w-full object-cover object-[72%_42%] md:object-[64%_center]"
       />
       <div
@@ -43,9 +43,9 @@ function Hero() {
       />
       <div className="hero-steam" aria-hidden />
       <div className="hero-steam hero-steam-b" aria-hidden />
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:items-start md:px-8 md:text-left">
+      <div className="relative z-10 mx-auto flex min-h-[82svh] max-w-7xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:items-start md:px-8 md:text-left">
         <h1
-          className="reveal mt-6 max-w-xl font-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-white"
+          className="reveal mt-6 max-w-2xl font-sans text-[clamp(2.25rem,4.2vw,3.9rem)] font-bold tracking-[-0.045em] leading-[1.08] text-white"
           style={{ animationDelay: "100ms" }}
         >
           Real Food.
@@ -53,7 +53,7 @@ function Hero() {
           Real Satisfaction.
         </h1>
         <p
-          className="reveal mt-5 max-w-md text-lg leading-snug text-white md:text-xl"
+          className="reveal mt-5 max-w-lg text-base leading-relaxed text-white/90 md:text-lg"
           style={{ animationDelay: "200ms" }}
         >
           Discover Nigerian favourites, signature rice dishes and satisfying plates, crafted around great flavour.
@@ -64,7 +64,7 @@ function Hero() {
         >
           <Link
             to="/menu"
-            className="inline-flex h-12 w-full items-center justify-center gap-2 bg-brand px-7 text-[11px] font-semibold tracking-label text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-[0_14px_32px_-10px_rgba(215,25,32,0.85)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 bg-[#C6A667] px-7 text-xs font-bold tracking-wide text-[#171717] transition duration-200 hover:-translate-y-0.5 hover:bg-[#dfc58e] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
           >
             <ShoppingBag className="size-4" aria-hidden />
             View menu
