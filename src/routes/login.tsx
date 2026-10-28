@@ -86,7 +86,7 @@ function LoginPage() {
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input id="password" type={showPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-12" />
-                  <button type="button" aria-label={showPassword ? "Hide Password" : "Show Password"} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><EyeOff className="size-4" /></button>
+                  <button type="button" aria-label={showPassword ? "Hide Password" : "Show Password"} onClick={() => setShowPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center">{showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
                 </div>
               </div>
               {mode === "up" && (
@@ -94,7 +94,7 @@ function LoginPage() {
                 <Label htmlFor="confirm-password">Confirm password</Label>
                 <div className="relative">
                   <Input id="confirm-password" type={showConfirmPassword ? "text" : "password"} minLength={8} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="pr-12" />
-                  <button type="button" aria-label={showConfirmPassword ? "Hide Confirm password" : "Show Confirm password"} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center"><Eye className="size-4" /></button>
+                  <button type="button" aria-label={showConfirmPassword ? "Hide Confirm password" : "Show Confirm password"} onClick={() => setShowConfirmPassword(v => !v)} className="absolute inset-y-0 right-0 grid w-11 place-items-center">{showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button>
                 </div>
               </div>
               )}
