@@ -4,8 +4,6 @@
  * The Gmail address is the administrative reply-to/notification inbox; Resend
  * cannot send FROM an unverified gmail.com address.
  */
-const ADMIN_EMAIL = "dreamshiftertechhub5@gmail.com";
-
 export async function sendPasswordResetEmail(recipient: string, resetUrl: string): Promise<void> {
   const key = process.env.RESEND_API_KEY?.trim();
   const from = process.env.DREAMTABLE_EMAIL_FROM?.trim();
@@ -22,9 +20,8 @@ export async function sendPasswordResetEmail(recipient: string, resetUrl: string
     body: JSON.stringify({
       from,
       to: [recipient],
-      reply_to: ADMIN_EMAIL,
-      subject: "Reset your DreamTable password",
-      text: `We received a request to reset your DreamTable password. Open this link within one hour: ${url.toString()}\n\nIf you did not request this, ignore this email.\n\nDreamTable Support: ${ADMIN_EMAIL}`,
+      subject: "Reset your RealMeal password",
+      text: `We received a request to reset your RealMeal password. Open this link within one hour: ${url.toString()}\n\nIf you did not request this, ignore this email.\n\nIf you need help, contact the restaurant through its official channel.`,
     }),
   });
   if (!response.ok) {
