@@ -63,7 +63,7 @@ function Hero() {
         >
           <Link
             to="/menu"
-            className="inline-flex h-12 w-full items-center justify-center gap-2 bg-[#C6A667] px-7 text-xs font-bold tracking-wide text-[#171717] transition duration-200 hover:-translate-y-0.5 hover:bg-[#dfc58e] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 bg-brand px-7 text-xs font-bold tracking-wide text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
           >
             <ShoppingBag className="size-4" aria-hidden />
             View menu
